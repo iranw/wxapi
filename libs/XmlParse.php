@@ -1,4 +1,5 @@
 <?php
+namespace Wx\Libs;
 
 /**
  * XMLParse class

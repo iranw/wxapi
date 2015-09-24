@@ -1,4 +1,5 @@
 <?php
+namespace Wx\Libs;
 
 /**
  * error code 说明.

@@ -1,5 +1,5 @@
 <?php
-
+namespace Wx\Libs;
 
 class WechatCallbackapiTest{
 
