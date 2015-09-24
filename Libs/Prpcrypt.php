@@ -32,7 +32,7 @@ class Prpcrypt
             $module = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_CBC, '');
             $iv = substr($this->key, 0, 16);
             //使用自定义的填充方式对明文进行补位填充
-            $pkc_encoder = new Pkcs7Encoder;
+            $pkc_encoder = new \Wx\Libs\Pkcs7Encoder;
             $text = $pkc_encoder->encode($text);
             mcrypt_generic_init($module, $this->key, $iv);
             //加密
@@ -42,10 +42,10 @@ class Prpcrypt
 
             //print(base64_encode($encrypted));
             //使用BASE64对加密后的字符串进行编码
-            return array(ErrorCode::$OK, base64_encode($encrypted));
+            return array(\Wx\Libs\ErrorCode::$OK, base64_encode($encrypted));
         } catch (Exception $e) {
             //print $e;
-            return array(ErrorCode::$EncryptAESError, null);
+            return array(\Wx\Libs\ErrorCode::$EncryptAESError, null);
         }
     }
 

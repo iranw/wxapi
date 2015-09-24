@@ -21,10 +21,10 @@ class Sha1
             $array = array($encrypt_msg, $token, $timestamp, $nonce);
             sort($array, SORT_STRING);
             $str = implode($array);
-            return array(ErrorCode::$OK, sha1($str));
-        } catch (Exception $e) {
+            return array(\Wx\Libs\ErrorCode::$OK, sha1($str));
+        } catch (\Exception $e) {
             //print $e . "\n";
-            return array(ErrorCode::$ComputeSignatureError, null);
+            return array(\Wx\Libs\ErrorCode::$ComputeSignatureError, null);
         }
     }
 

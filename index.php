@@ -2,33 +2,10 @@
 ini_set("display_errors","On");
 error_reporting(E_ALL);
 
-
-
-
 include './libs/autoload.php';
 
-
-
-echo \Wx\Config\SysConfig::$logFile;
-
-
-
-
-
-exit();
-
-// include './config/sys.config.php';
-include './config/SysConfig.php';
-include './libs/ErrorCode.php';
-include './libs/Pkcs7Encoder.php';
-include './libs/Prpcrypt.php';
-include './libs/Sha1.php';
-include './libs/WxBizMsgCrypt.php';
-include './libs/XmlParse.php';
-
 if(isset($_GET['echostr'])){
-    include './libs/WechatCallbackapiTest.php';
-    $wechatObj = new WechatCallbackapiTest(TOKEN);
+    $wechatObj = new Wx\Libs\WechatCallbackapiTest(Wx\Config\SysConfig::TOKEN);
     $wechatObj->valid();
 }
 
@@ -46,7 +23,7 @@ $xmlObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA | L
 $from_xml = sprintf("<xml><ToUserName><![CDATA[toUser]]></ToUserName><Encrypt><![CDATA[%s]]></Encrypt></xml>", $xmlObj->Encrypt);
 
 $msg = "";//初始化解密后字符串
-$pc = new WxBizMsgCrypt(TOKEN, EncodingAESKey, AppID);
+$pc = new Wx\Libs\WxBizMsgCrypt(TOKEN, EncodingAESKey, AppID);
 $errCode = $pc->decryptMsg($msg_signature, $timestamp, $nonce, $from_xml, $msg);
 
 if($errCode==0){
@@ -55,7 +32,7 @@ if($errCode==0){
     // $msgArr = json_decode(json_encode($xml),TRUE);
     $msgArr = (array)$xml;
 }else{
-   $logStr = "error code:".$errCode;
+    $logStr = "error code:".$errCode;
 }
 
 $ntime = date("Y-m-d H:i:s",time());
