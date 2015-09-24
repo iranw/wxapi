@@ -5,7 +5,7 @@ class WechatCallbackapiTest{
 
     public $token;
 
-    public __construct($token){
+    public function __construct($token){
         $this->token=$token;
     }
 
