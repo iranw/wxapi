@@ -16,6 +16,15 @@ class SysConfig{
         'init_openid_list'=>'init_openid_list',
         'session_openid_list'=>'session_openid_list',
         'session_user'=>'session_',
+        'session_user_tmp'=>'session_tmp_',
+        'sleep_time'=>'wx_sleep_time',
+        'openid_bind'=>'wx_bind_',
+        'im_queue'=>'im_queue',
+    );
+
+    public static $sleepTime = array(
+        'worktime'=>"",
+        'resttime'=>"",
     );
 
 }
