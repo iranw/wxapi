@@ -11,6 +11,7 @@ class SysConfig{
     public static $redis = array(
         'host'=>'192.168.2.50',
         'port'=>'6379',
+        'dbindex'=>2,//the database number to switch to.
     );
     public static $preMem = array(
         'init_openid_list'=>'init_openid_list',
@@ -19,7 +20,7 @@ class SysConfig{
         'session_user_tmp'=>'session_tmp_',
         'sleep_time'=>'wx_sleep_time',
         'openid_bind'=>'wx_bind_',
-        'im_queue'=>'im_queue',
+        'im_queue'=>'wechat_msg_queue',
     );
 
     public static $sleepTime = array(
