@@ -31,6 +31,7 @@ if($errCode==0){
     $xml = simplexml_load_string($msg, "SimpleXMLElement", LIBXML_NOCDATA | LIBXML_NOBLANKS);
     // $msgArr = json_decode(json_encode($xml),TRUE);
     $msgArr = (array)$xml;
+    putRedis($msgArr);
 }else{
     $logStr = "error code:".$errCode;
 }
@@ -39,6 +40,16 @@ $ntime = date("Y-m-d H:i:s",time());
 $logStr = "\n----POST DATA({$ntime})----\n".$logStr."\n";
 file_put_contents(\Wx\Config\SysConfig::$logFile,$logStr,FILE_APPEND);
 
-
-
-
+/**
+ * 信息注入到redis
+ * @param  [type] $msgArr [description]
+ * @return [type]         [description]
+ */
+function putRedis($msgArr){
+    $msgArr['IsTask']=0;
+    $redis = new Redis();
+    $redis->connect(\Wx\Config\SysConfig::$redis['host'], \Wx\Config\SysConfig::$redis['port']);
+    $redis->sadd(\Wx\Config\SysConfig::$preMem['init_openid_list'], $msgArr['FromUserName']);//注入到初始化用户集合里面
+    $redis->sadd(\Wx\Config\SysConfig::$preMem['session_openid_list'], $msgArr['FromUserName']);//注入到会话用户集合里面 
+    $redis->rPush(\Wx\Config\SysConfig::$preMem['session_user'].$msgArr['FromUserName'], json_encode($msgArr));
+}

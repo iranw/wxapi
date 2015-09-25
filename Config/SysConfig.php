@@ -9,8 +9,14 @@ class SysConfig{
 
     public static $logFile = './logs/msg.log';
     public static $redis = array(
-        'host'=>'127.0.0.1',
+        'host'=>'192.168.2.50',
         'port'=>'6379',
     );
+    public static $preMem = array(
+        'init_openid_list'=>'init_openid_list',
+        'session_openid_list'=>'session_openid_list',
+        'session_user'=>'session_',
+    );
+
 }
 
