@@ -49,6 +49,8 @@ function putRedis($msgArr){
     $msgArr['IsTask']=0;
     $redis = new Redis();
     $redis->connect(\Wx\Config\SysConfig::$redis['host'], \Wx\Config\SysConfig::$redis['port']);
+    $redis->select(\Wx\Config\SysConfig::$redis['dbindex']; 
+        
     $redis->sadd(\Wx\Config\SysConfig::$preMem['init_openid_list'], $msgArr['FromUserName']);//注入到初始化用户集合里面
     $redis->sadd(\Wx\Config\SysConfig::$preMem['session_openid_list'], $msgArr['FromUserName']);//注入到会话用户集合里面 
     $redis->rPush(\Wx\Config\SysConfig::$preMem['session_user'].$msgArr['FromUserName'], json_encode($msgArr));

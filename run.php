@@ -7,6 +7,7 @@ include './Libs/autoload.php';
 
 $redis = new Redis();
 $redis->pconnect(\Wx\Config\SysConfig::$redis['host'], \Wx\Config\SysConfig::$redis['port']);
+$redis->select(\Wx\Config\SysConfig::$redis['dbindex']); 
 
 //初始化休息时间
 $redis->set(\Wx\Config\SysConfig::$preMem['sleep_time'], 1);
